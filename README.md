@@ -6,6 +6,10 @@ To begin the workshop, start at [docs/README.md](./docs/README.md)
 
 Or, if just want to run the app...
 
+## Contributing
+
+We welcome contributions! Please see our [CONTRIBUTING.md](./CONTRIBUTING.md) for details on how to get started and our [coding standards](./.github/copilot-instructions.md) for development guidelines.
+
 ## Launch the site
 
 A script file has been created to launch the site. You can run it by:

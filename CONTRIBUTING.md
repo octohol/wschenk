@@ -14,8 +14,25 @@ Please note that this project is released with a [Contributor Code of Conduct][c
 
 These are one time installations required to be able to test your changes locally as part of the pull request (PR) submission process.
 
-1. install Go [through download](https://go.dev/doc/install) | [through Homebrew](https://formulae.brew.sh/formula/go)
-1. [install golangci-lint](https://golangci-lint.run/usage/install/#local-installation)
+### Backend (Python/Flask)
+1. Python 3.8+ installed
+2. Virtual environment setup (handled by setup scripts)
+
+### Frontend (Node.js/Astro/Svelte) 
+1. Node.js 18+ installed
+2. npm package manager
+
+### Optional Development Tools
+- [black](https://black.readthedocs.io/) for Python code formatting: `pip install black`
+- [isort](https://pycqa.github.io/isort/) for Python import sorting: `pip install isort`
+
+## Coding Standards
+
+Please review our comprehensive coding standards and development guidelines in [.github/copilot-instructions.md](.github/copilot-instructions.md). This includes:
+- Python formatting requirements (black, isort)
+- Python docstring standards (Google style)
+- Testing requirements
+- Development workflow guidelines
 
 ## Submitting a pull request
 
