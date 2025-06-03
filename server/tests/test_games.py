@@ -168,5 +168,89 @@ class TestGamesRoutes(unittest.TestCase):
         self.assertEqual(response.status_code, 404)
         self.assertEqual(data['error'], "Game not found")
 
+    def test_get_games_filter_by_category(self) -> None:
+        """Test filtering games by category"""
+        # Act - filter by category 1 (Strategy)
+        response = self.client.get(f'{self.GAMES_API_PATH}?category=1')
+        data = self._get_response_data(response)
+        
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(data), 1)  # Only first game has category index 0 (Strategy)
+        self.assertEqual(data[0]['category']['name'], "Strategy")
+
+    def test_get_games_filter_by_publisher(self) -> None:
+        """Test filtering games by publisher"""
+        # Act - filter by publisher 1 (DevGames Inc)
+        response = self.client.get(f'{self.GAMES_API_PATH}?publisher=1')
+        data = self._get_response_data(response)
+        
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(data), 1)  # Only first game has publisher index 0 (DevGames Inc)
+        self.assertEqual(data[0]['publisher']['name'], "DevGames Inc")
+
+    def test_get_games_filter_by_multiple_categories(self) -> None:
+        """Test filtering games by multiple categories"""
+        # Act - filter by both categories (1,2)
+        response = self.client.get(f'{self.GAMES_API_PATH}?category=1,2')
+        data = self._get_response_data(response)
+        
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(data), 2)  # Both test games should be returned
+
+    def test_get_games_filter_by_category_and_publisher(self) -> None:
+        """Test filtering games by both category and publisher"""
+        # Act - filter by category 1 and publisher 1
+        response = self.client.get(f'{self.GAMES_API_PATH}?category=1&publisher=1')
+        data = self._get_response_data(response)
+        
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(data), 1)  # Only first game matches both criteria
+        self.assertEqual(data[0]['category']['name'], "Strategy")
+        self.assertEqual(data[0]['publisher']['name'], "DevGames Inc")
+
+    def test_get_games_filter_invalid_category(self) -> None:
+        """Test filtering with invalid category ID"""
+        # Act - filter by non-existent category
+        response = self.client.get(f'{self.GAMES_API_PATH}?category=999')
+        data = self._get_response_data(response)
+        
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(data), 0)  # No games should match
+
+    def test_get_categories(self) -> None:
+        """Test retrieval of all categories"""
+        # Act
+        response = self.client.get('/api/categories')
+        data = self._get_response_data(response)
+        
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(data), len(self.TEST_DATA["categories"]))
+        
+        # Check structure
+        required_fields = ['id', 'name', 'description', 'game_count']
+        for field in required_fields:
+            self.assertIn(field, data[0])
+
+    def test_get_publishers(self) -> None:
+        """Test retrieval of all publishers"""
+        # Act
+        response = self.client.get('/api/publishers')
+        data = self._get_response_data(response)
+        
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(data), len(self.TEST_DATA["publishers"]))
+        
+        # Check structure
+        required_fields = ['id', 'name', 'description', 'game_count']
+        for field in required_fields:
+            self.assertIn(field, data[0])
+
 if __name__ == '__main__':
     unittest.main()
