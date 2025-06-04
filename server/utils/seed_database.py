@@ -6,7 +6,12 @@ from models import db, Category, Game, Publisher
 from utils.database import init_db
 
 def create_app():
-    """Create and configure Flask app for database operations"""
+    """
+    Create and configure Flask app for database operations.
+    
+    Returns:
+        Flask: Configured Flask application instance with initialized database
+    """
     app = Flask(__name__)
 
     # Initialize the database with the app
@@ -15,7 +20,13 @@ def create_app():
     return app
 
 def create_games():
-    """Create games, categories and publishers from CSV data for crowd funding platform"""
+    """
+    Create games, categories and publishers from CSV data for crowd funding platform.
+    
+    Reads game data from a CSV file and creates corresponding Game, Category, and Publisher 
+    records in the database. Publishers and categories are created only once and reused 
+    for multiple games. Each game gets a random star rating between 3.0 and 5.0.
+    """
     app = create_app()
     
     with app.app_context():
@@ -78,6 +89,12 @@ def create_games():
         print(f"Added {game_count} games with {len(categories)} categories and {len(publishers)} publishers")
 
 def seed_database():
+    """
+    Entry point function to seed the database with game data.
+    
+    This function calls create_games() to populate the database with sample data
+    from CSV files for development and testing purposes.
+    """
     create_games()
 
 if __name__ == '__main__':
