@@ -7,6 +7,8 @@ This is a crowdfunding platform for games with a developer theme. The applicatio
 ### Required Before Each Commit
 
 - Run Python tests to ensure backend functionality
+- Format Python code with `black` and sort imports with `isort` 
+- Ensure all new Python functions and classes have proper docstrings following Google style
 - For frontend changes, run builds in the client directory to verify build success and the end-to-end tests, to ensure everything works correctly
 - When making API changes, update and run the corresponding tests to ensure everything works correctly
 - When updating models, ensure database migrations are included if needed
@@ -22,6 +24,43 @@ This is a crowdfunding platform for games with a developer theme. The applicatio
 - Use SQLAlchemy models for database interactions
 - Use Flask blueprints for organizing routes
 - Follow RESTful API design principles
+
+### Python Formatting Standards
+
+- Use [black](https://black.readthedocs.io/) for code formatting with default settings
+- Use [isort](https://pycqa.github.io/isort/) for import sorting with profile "black" for compatibility
+- Line length should be 88 characters (black default)
+- Use double quotes for strings unless single quotes avoid escaping
+
+### Python Documentation Standards
+
+- All modules must have a module-level docstring describing their purpose
+- All public functions and methods must have docstrings following Google style format
+- All classes must have docstrings describing their purpose and key attributes
+- Docstrings should include:
+  - Brief description of the function/class purpose
+  - Args: description of each parameter with type information
+  - Returns: description of return value and type (if applicable)
+  - Raises: description of exceptions that may be raised (if applicable)
+- Use triple double quotes (""") for all docstrings
+- Example format:
+  ```python
+  def example_function(param1: str, param2: int) -> bool:
+      """Brief description of function purpose.
+      
+      Longer description if needed to explain complex behavior.
+      
+      Args:
+          param1: Description of the first parameter.
+          param2: Description of the second parameter.
+          
+      Returns:
+          Description of return value.
+          
+      Raises:
+          ValueError: Description of when this exception is raised.
+      """
+  ```
 
 ### Svelte and Astro Patterns
 
